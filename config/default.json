@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://navneet:navneet@cluster0.nciue.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret": "ajsndkvlmkajdsl"
+}
