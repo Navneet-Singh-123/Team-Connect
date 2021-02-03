@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://navneet:navneet@cluster0.nciue.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    "jwtSecret": "ajsndkvlmkajdsl"
+    "jwtSecret": "ajsndkvlmkajdsl",
+    "githubClientId": "0b31b7e895967379758b",
+    "githubSecret": "8d2938af91f49f52de619f9e63a97b12ba92c063 "
 }
