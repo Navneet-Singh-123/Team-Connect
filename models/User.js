@@ -21,13 +21,19 @@ const UserSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now()
     }, 
+    teams: [
+        {
+            code: {
+                type: String
+            }, 
+            isAdmin: {
+                type: Boolean
+            }
+        }
+    ], 
     code: {
-        type: String,
+        type: String, 
         default: ""
-    }, 
-    isAdmin: {
-        type: Boolean, 
-        default: false
     }
 })
 
