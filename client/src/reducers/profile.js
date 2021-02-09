@@ -30,6 +30,13 @@ export default function(state=initialState, action){
                 error: payload, 
                 loading: false
             }
+        case CLEAR_PROFILE: 
+            return {
+                ...state, 
+                profile: null, 
+                repos: [], 
+                loading: false
+            }
         default: 
             return state
     }
