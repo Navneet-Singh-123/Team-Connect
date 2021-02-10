@@ -148,6 +148,13 @@ img {
   color: #333;
 }
 
+.alert-wrapper {
+  position: fixed;
+  top: 4rem;
+  right: 2rem;
+  display: inline-block;
+}
+
 .alert {
   padding: 0.8rem;
   margin: 1rem 0;
