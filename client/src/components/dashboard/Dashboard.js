@@ -3,15 +3,19 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {deleteAccount, getCurrentProfile} from '../../actions/profile'
+import {getUserTeams} from '../../actions/auth'
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
+import ShowTeams from './ShowTeams';
+import JoinTeam from './JoinTeam';
 
-const Dashboard = ({getCurrentProfile, auth: {user}, profile: { profile, loading }, deleteAccount}) => {
+const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile, loading }, deleteAccount, getUserTeams}) => {
 
     useEffect(() => {
         getCurrentProfile();
+        getUserTeams();
     }, [])
 
     return loading && profile===null ? <Spinner/> : (
@@ -25,6 +29,8 @@ const Dashboard = ({getCurrentProfile, auth: {user}, profile: { profile, loading
                     <DashboardActions />
                     <Experience experience={profile.experience}/>
                     <Education education={profile.education}/>
+                    <ShowTeams teams={myTeams} />
+                    <JoinTeam />
                     <div className="my-2">
                         <button className="btn btn-danger" onClick={()=>deleteAccount()}>
                             <i className="fas fa-user-minus">
@@ -50,11 +56,12 @@ Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
     deleteAccount: PropTypes.func.isRequired,
+    getUserTeams: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth, 
-    profile: state.profile
+    profile: state.profile, 
 })
 
-export default connect(mapStateToProps, {getCurrentProfile, deleteAccount})(Dashboard)
+export default connect(mapStateToProps, {getCurrentProfile, deleteAccount, getUserTeams})(Dashboard)

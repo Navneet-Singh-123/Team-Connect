@@ -6,14 +6,17 @@ import {
     LOGIN_SUCCESS, 
     LOGIN_FAIL, 
     LOGOUT, 
-    ACCOUNT_DELETED
+    ACCOUNT_DELETED, 
+    GET_USER_TEAMS,
+    ENTER_TEAM
 } from '../actions/types.js';
 
 const initialState = {
     token: localStorage.getItem("token"), 
     isAuthenticated: null, 
     loading: true, 
-    user: null
+    user: null, 
+    myTeams: []
 }
 
 export default function(state=initialState, action){
@@ -45,9 +48,18 @@ export default function(state=initialState, action){
                 ...state, 
                 token: null,
                 isAuthenticated: false, 
-                loading: false
+                loading: false, 
+                myTeams: []
             } 
-        
+        case GET_USER_TEAMS: 
+            return {
+                ...state, 
+                myTeams: payload
+            }
+        case ENTER_TEAM: 
+            return {
+                ...state
+            }
         default: 
             return state
     }

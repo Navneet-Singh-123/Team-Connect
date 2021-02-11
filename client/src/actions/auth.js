@@ -8,7 +8,9 @@ import {
     LOGIN_FAIL, 
     LOGIN_SUCCESS, 
     LOGOUT, 
-    CLEAR_PROFILE
+    CLEAR_PROFILE, 
+    GET_USER_TEAMS, 
+    ENTER_TEAM
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -86,4 +88,39 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
     dispatch({type: CLEAR_PROFILE})
     dispatch({type: LOGOUT})
+}
+
+// Get user teams
+export const getUserTeams = () => async dispatch => {
+    try{
+        const res = await axios.get("/api/teams");
+        dispatch({
+            type: GET_USER_TEAMS,
+            payload: res.data
+        })
+    }
+    catch(err){
+        dispatch(setAlert(err.response.data, 'danger'))
+    }
+}
+
+// Register for a team
+export const registerTeam = ({code}) => async dispatch =>{
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body = JSON.stringify({code});
+    try{
+        const res = await axios.post("/api/teams/enter", body, config);
+        dispatch({
+            type: ENTER_TEAM
+        })
+        dispatch(setAlert("You are successfully registered in this team. Please refresh the page to view changes" ,"success"));
+        dispatch(loadUser());
+    }
+    catch(err){
+        dispatch(setAlert(err.response.data.msg, 'danger'))
+    }
 }
