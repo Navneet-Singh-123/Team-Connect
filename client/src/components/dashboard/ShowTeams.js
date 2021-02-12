@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Link, Redirect, withRouter} from 'react-router-dom'
 import {setAlert} from '../../actions/alert'
+import {getTeamProfiles} from '../../actions/profile'
+import {setCurCode} from '../../actions/auth'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 
 
-const ShowTeams = ({teams, setAlert}) => {
+const ShowTeams = ({teams, setAlert, history, auth: {user}, getTeamProfiles, setCurCode}) => {
 
     const [team, setTeam] = useState(""); 
     const [code, setCode] = useState("");
@@ -25,7 +27,15 @@ const ShowTeams = ({teams, setAlert}) => {
                 return item.name === team
             })
             setCode(curTeam[0].code);
-            console.log(team, code);
+            console.log(team, code, user.code);
+            if(code === user.code){
+                setAlert("You are already in this team");
+            }
+            else if(code!=="" && code!==user.code){
+                setCurCode(code);
+                getTeamProfiles(code);
+                history.push("/");
+            }
         }
     }
 
@@ -51,6 +61,13 @@ const ShowTeams = ({teams, setAlert}) => {
 
 ShowTeams.propTypes = {
     setAlert: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    getTeamProfiles: PropTypes.func.isRequired,
+    setCurCode: PropTypes.func.isRequired,
 }
 
-export default connect(null, {setAlert})(ShowTeams);
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, {setAlert, getTeamProfiles, setCurCode})(withRouter(ShowTeams));

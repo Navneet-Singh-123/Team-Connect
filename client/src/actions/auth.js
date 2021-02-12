@@ -10,7 +10,8 @@ import {
     LOGOUT, 
     CLEAR_PROFILE, 
     GET_USER_TEAMS, 
-    ENTER_TEAM
+    ENTER_TEAM,
+    SET_CODE
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -122,5 +123,19 @@ export const registerTeam = ({code}) => async dispatch =>{
     }
     catch(err){
         dispatch(setAlert(err.response.data.msg, 'danger'))
+    }
+}
+
+// Set code for the current team 
+export const setCurCode = (code) => async dispatch => {
+    try{
+        const res = await axios.put(`api/profile/change/${code}`);
+        dispatch({
+            type: SET_CODE, 
+            payload: res.data
+        })
+    }
+    catch(err){
+        dispatch(setAlert(err.response.data, 'danger'))
     }
 }

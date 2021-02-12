@@ -8,7 +8,8 @@ import {
     LOGOUT, 
     ACCOUNT_DELETED, 
     GET_USER_TEAMS,
-    ENTER_TEAM
+    ENTER_TEAM,
+    SET_CODE
 } from '../actions/types.js';
 
 const initialState = {
@@ -59,6 +60,11 @@ export default function(state=initialState, action){
         case ENTER_TEAM: 
             return {
                 ...state
+            }
+        case SET_CODE: 
+            return {
+                ...state, 
+                user: payload
             }
         default: 
             return state

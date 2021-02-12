@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {registerTeam} from '../../actions/auth'
 
-
 const JoinTeam = ({registerTeam}) => {
 
     const[code, setCode] = useState("");

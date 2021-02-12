@@ -2,7 +2,7 @@ import React, {Fragment, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import {deleteAccount, getCurrentProfile} from '../../actions/profile'
+import {deleteAccount, getCurrentProfile, getTeamProfiles} from '../../actions/profile'
 import {getUserTeams} from '../../actions/auth'
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
@@ -11,11 +11,14 @@ import Education from './Education';
 import ShowTeams from './ShowTeams';
 import JoinTeam from './JoinTeam';
 
-const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile, loading }, deleteAccount, getUserTeams}) => {
+const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile, loading }, deleteAccount, getUserTeams, getTeamProfiles}) => {
 
     useEffect(() => {
         getCurrentProfile();
-        getUserTeams();
+        getUserTeams(); 
+        if(user && user.code){
+            getTeamProfiles(user.code);
+        }
     }, [])
 
     return loading && profile===null ? <Spinner/> : (
@@ -57,6 +60,7 @@ Dashboard.propTypes = {
     profile: PropTypes.object.isRequired,
     deleteAccount: PropTypes.func.isRequired,
     getUserTeams: PropTypes.func.isRequired,
+    getTeamProfiles: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -64,4 +68,4 @@ const mapStateToProps = state => ({
     profile: state.profile, 
 })
 
-export default connect(mapStateToProps, {getCurrentProfile, deleteAccount, getUserTeams})(Dashboard)
+export default connect(mapStateToProps, {getCurrentProfile, deleteAccount, getUserTeams, getTeamProfiles})(Dashboard)

@@ -262,4 +262,49 @@ router.get("/github/:username", (req, res)=>{
     }
 })
 
+// @route   GET api/profile/:code
+// @desc    Get profiles of a particular team
+// @access  Private
+router.get("/:code", auth, async (req, res)=>{
+    try {
+        const users = await User.find();
+        const userIds = [];
+        users.map(user=>{
+            const curTeam = user.teams.filter(team=>{
+                return team.code === req.params.code
+            })
+            if(curTeam.length>0){
+                userIds.push(user._id);
+            }
+        })
+        const profiles = []
+        let idx=0;
+        userIds.forEach(async (userId) => {
+            const profile = await Profile.findOne({user: userId}).populate('user', ['name', 'avatar']);
+            profiles.push(profile);
+            idx++;
+            if(idx===userIds.length){
+                res.json(profiles);
+            }
+        })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error'); 
+    }
+})
+
+// @route   PUT api/profile/change/:code
+// @desc    Change the current team for a user
+// @access  Private
+router.put("/change/:code", auth, async (req, res)=>{
+
+    try {
+        const user = await User.findOneAndUpdate({_id: req.user.id}, {$set: {code: req.params.code}}, {new: true});
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');    
+    }
+})
+
 module.exports = router;

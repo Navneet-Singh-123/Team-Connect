@@ -4,9 +4,33 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {logout} from '../../actions/auth';
 
-const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
+const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
+
 
     const authLinks = (
+
+      <ul>
+        <li>
+          <Link to="/profiles">
+            <i className='fas fa-users' />{' '}
+            <span className='hide-sm'>Members</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/dashboard">
+            <i className='fas fa-user' />{' '}
+            <span className='hide-sm'>Dashboard</span>
+          </Link>
+        </li>
+        <li>
+          <a onClick={logout} href='#!'>
+            <i className='fas fa-sign-out-alt' />{' '}
+            <span className='hide-sm'>Logout</span>
+          </a>
+        </li>
+      </ul>
+    )
+    const authLinks2 = (
       <ul>
         <li>
           <Link to="/dashboard">
@@ -35,8 +59,11 @@ const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
         <h1>
           <Link to="/"><i className="fas fa-code"></i> TeamConnector</Link>
         </h1>
-        {!loading && (
+        {!loading && user.code!=="" && (
           <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        )}
+        {!loading && user.code==="" && (
+          <Fragment>{isAuthenticated ? authLinks2 : guestLinks}</Fragment>
         )}
     </nav>
     )
