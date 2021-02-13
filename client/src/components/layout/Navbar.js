@@ -8,7 +8,6 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
 
 
     const authLinks = (
-
       <ul>
         <li>
           <Link to="/profiles">
@@ -47,6 +46,7 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
       </ul>
     )
 
+
     const guestLinks = (
       <ul>
         <li><Link to="/register">Register</Link></li>
@@ -59,10 +59,10 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
         <h1>
           <Link to="/"><i className="fas fa-code"></i> TeamConnector</Link>
         </h1>
-        {!loading && user.code!=="" && (
+        {!loading &&  user && user.code!=="" && (
           <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
         )}
-        {!loading && user.code==="" && (
+        {!loading &&  user && user.code==="" && (
           <Fragment>{isAuthenticated ? authLinks2 : guestLinks}</Fragment>
         )}
     </nav>
