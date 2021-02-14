@@ -8,10 +8,10 @@ import  ProfileItem from './ProfileItem';
 const Profiles = ({getTeamProfiles, profile: {profiles, loading}, auth: {user}}) => {
 
     useEffect(() => {
-        if(user && user.code!=""){
+        if(user && user.code!==""){
             getTeamProfiles(user.code);
         }
-    }, [])
+    }, [getTeamProfiles, user])
 
     return (
         <Fragment>
