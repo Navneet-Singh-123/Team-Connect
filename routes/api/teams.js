@@ -104,5 +104,30 @@ router.get("/", auth, async(req, res)=>{
     }
 })
 
+// @route   GET api/teams/admin
+// @desc    Get all the teams for which the current user is admin
+// @access  Private
+router.get("/admin", auth, async (req, res)=>{
+    try {
+        const user = await User.findById(req.user.id);
+        const codes = [];
+        const myTeams = [];
+        var idx=0;
+        user.teams.map(async team=>{
+            if(team.isAdmin){
+                const curTeam = await Team.findOne({code: team.code});
+                myTeams.push(curTeam);
+            }
+            idx++;
+            if(idx==user.teams.length){
+                res.json(myTeams);
+            }
+        })
+        
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error') 
+    }
+})
 
 module.exports = router;

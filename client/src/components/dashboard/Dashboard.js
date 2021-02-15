@@ -34,6 +34,7 @@ const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile
                     <Education education={profile.education}/>
                     <ShowTeams teams={myTeams} />
                     <JoinTeam />
+                    <Link to="/create-team" className="btn btn-primary my-1">Create Team</Link>
                     <div className="my-2">
                         <button className="btn btn-danger" onClick={()=>deleteAccount()}>
                             <i className="fas fa-user-minus">
@@ -50,7 +51,7 @@ const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile
                     </Link>
                 </Fragment>
             )}
-        </Fragment>
+        </Fragment> 
     )
 }
 

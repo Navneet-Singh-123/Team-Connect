@@ -11,7 +11,8 @@ import {
     CLEAR_PROFILE, 
     GET_USER_TEAMS, 
     ENTER_TEAM,
-    SET_CODE
+    SET_CODE,
+    GET_ADMIN_TEAMS
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -132,6 +133,20 @@ export const setCurCode = (code) => async dispatch => {
         const res = await axios.put(`api/profile/change/${code}`);
         dispatch({
             type: SET_CODE, 
+            payload: res.data
+        })
+    }
+    catch(err){
+        dispatch(setAlert(err.response.data, 'danger'))
+    }
+}
+
+// Getting the admin Teams
+export const getAdminTeams = () => async dispatch => {
+    try{
+        const res = await axios.get('api/teams/admin');
+        dispatch({
+            type: GET_ADMIN_TEAMS, 
             payload: res.data
         })
     }

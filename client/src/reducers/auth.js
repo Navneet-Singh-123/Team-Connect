@@ -9,7 +9,8 @@ import {
     ACCOUNT_DELETED, 
     GET_USER_TEAMS,
     ENTER_TEAM,
-    SET_CODE
+    SET_CODE,
+    GET_ADMIN_TEAMS
 } from '../actions/types.js';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
     isAuthenticated: null, 
     loading: true, 
     user: null, 
-    myTeams: []
+    myTeams: [], 
+    adminTeams: []
 }
 
 export default function(state=initialState, action){
@@ -65,6 +67,12 @@ export default function(state=initialState, action){
             return {
                 ...state, 
                 user: payload
+            }
+        case GET_ADMIN_TEAMS:
+            return {
+                ...state, 
+                loading: false,
+                adminTeams: payload 
             }
         default: 
             return state

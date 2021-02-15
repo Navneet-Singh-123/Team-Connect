@@ -14,6 +14,8 @@ import Posts from '../posts/Posts';
 import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
+import CreateTeam from '../dashboard/CreateTeam';
+import MyTeams from '../teams/MyTeams'
 
 const Routes = () => {
   return (
@@ -31,6 +33,8 @@ const Routes = () => {
         <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path='/create-team' component={CreateTeam} />
+        <PrivateRoute exact path='/myTeams' component={MyTeams} />
         <Route component={NotFound} />
       </Switch>
     </section>
