@@ -6,6 +6,7 @@ const {check, validationResult} = require("express-validator")
 
 const Team = require('../../models/Team');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route   POST api/teams
 // @desc    Create a Team
@@ -32,6 +33,40 @@ router.post("/", [auth, [
         newTeam.members.push({user: req.user.id});
         const team = await newTeam.save();
         res.json(team);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error')
+    }
+})
+
+// @route   DELETE api/teams/:id
+// @desc    Deleting a team
+// @access  Private
+router.delete("/:id", auth, async (req, res)=>{
+    try {
+        const team = await Team.findById(req.params.id);
+        const teamCode = team.code;
+
+        // Remove the members of the team
+        team.members.map(async member=>{
+            const user = await User.findById(member.user);
+            const removeIndex = user.teams.map(item=>item.code).indexOf(teamCode);
+            user.teams.splice(removeIndex, 1);
+            if(user.code === teamCode){
+                user.code="";
+            }
+            await user.save();
+        })
+
+        // Remove the posts of that team
+        const posts = await Post.find({code: teamCode});
+        posts.map(async post=>{
+            await Post.findByIdAndRemove(post._id);
+        })
+
+        // Remove the team itself
+        await Team.findByIdAndRemove(req.params.id);
+        res.json({msg: 'Team removed'});
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error')
@@ -91,10 +126,12 @@ router.get("/", auth, async(req, res)=>{
     try {
         const allTeams=[];
         const user = await User.findById(req.user.id);
-        user.teams.map(async (team, idx)=>{
+        var idx=0;
+        user.teams.map(async (team)=>{
             const curTeam =  await Team.findOne({code: team.code});
             allTeams.push(curTeam);
-            if(idx==user.teams.length-1){
+            idx++;
+            if(idx==user.teams.length){
                 return res.json(allTeams)
             }
         })

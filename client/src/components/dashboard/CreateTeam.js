@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import {createTeam} from '../../actions/auth'
+import {connect} from 'react-redux'
 
-const CreateTeam = props => {
+const CreateTeam = ({createTeam, auth: {createdTeam, loading}}) => {
 
     const [formData, setFormData] = useState({
         description: '', 
@@ -19,7 +21,7 @@ const CreateTeam = props => {
             </h1>
             <form className='form my-1' onSubmit={e=>{
                 e.preventDefault();
-                console.log(formData);
+                createTeam(formData);
             }}>
                 <div className="form-group">
                     <input type="text" placeholder="Team Name" name="name" value={name} onChange={e=>onChange(e)} required />
@@ -40,7 +42,12 @@ const CreateTeam = props => {
 }
 
 CreateTeam.propTypes = {
-
+    createTeam: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
 }
 
-export default CreateTeam
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, {createTeam})(CreateTeam)

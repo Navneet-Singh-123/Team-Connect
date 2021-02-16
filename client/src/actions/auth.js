@@ -12,7 +12,9 @@ import {
     GET_USER_TEAMS, 
     ENTER_TEAM,
     SET_CODE,
-    GET_ADMIN_TEAMS
+    GET_ADMIN_TEAMS,
+    CREATE_TEAM,
+    DELETE_TEAM
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -151,6 +153,43 @@ export const getAdminTeams = () => async dispatch => {
         })
     }
     catch(err){
+        dispatch(setAlert(err.response.data, 'danger'))
+    }
+}
+
+// Creating team
+export const createTeam = (formData) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post("/api/teams", formData, config);
+        dispatch({
+            type: CREATE_TEAM, 
+            payload: res.data
+        })
+        dispatch(setAlert("Team Created", "success"));
+    } catch (err) {
+        const errors = err.response.data.errors
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        }
+        dispatch(setAlert(err.response.data, 'danger'))
+    }
+}
+
+// Deleting team
+export const deleteTeam = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/teams/${id}`);
+        console.log(res);
+        dispatch({
+            type: DELETE_TEAM, 
+        })
+        dispatch(setAlert("Team removed. Please refresh the page to view changes", "success"))
+    } catch (err) {
         dispatch(setAlert(err.response.data, 'danger'))
     }
 }
