@@ -8,6 +8,21 @@ const Team = require('../../models/Team');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
 
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        /* next line works with strings and numbers, 
+         * and you may want to customize it to your needs
+         */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
 // @route   POST api/teams
 // @desc    Create a Team
 // @access  Private
@@ -132,6 +147,7 @@ router.get("/", auth, async(req, res)=>{
             allTeams.push(curTeam);
             idx++;
             if(idx==user.teams.length){
+                allTeams.sort(dynamicSort("name"));
                 return res.json(allTeams)
             }
         })
@@ -140,6 +156,8 @@ router.get("/", auth, async(req, res)=>{
         res.status(500).send('Server Error') 
     }
 })
+
+
 
 // @route   GET api/teams/admin
 // @desc    Get all the teams for which the current user is admin
@@ -157,6 +175,7 @@ router.get("/admin", auth, async (req, res)=>{
             }
             idx++;
             if(idx==user.teams.length){
+                myTeams.sort(dynamicSort("name"));
                 res.json(myTeams);
             }
         })

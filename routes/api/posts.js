@@ -25,7 +25,7 @@ router.post("/", [auth, [
             avatar: user.avatar, 
             user: req.user.id, 
             code: user.code
-        })
+        }) 
         const post = await newPost.save();
         res.json(post);
     } catch (err) {
@@ -203,5 +203,6 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res)=>{
         res.status(500).send('Server Error') 
     }
 })
+
 
 module.exports = router;
