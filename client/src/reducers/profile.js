@@ -4,7 +4,8 @@ import {
 	CLEAR_PROFILE,
 	UPDATE_PROFILE,
 	GET_PROFILES,
-	GET_REPOS
+	GET_REPOS, 
+    LEAVE_TEAM
 } from '../actions/types';
 
 const initialState = {
@@ -51,6 +52,7 @@ export default function(state=initialState, action){
                 repos: payload, 
                 loading: false
             }
+        case LEAVE_TEAM:
         default: 
             return state
     }

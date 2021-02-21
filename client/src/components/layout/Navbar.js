@@ -44,6 +44,12 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
     const authLinks2 = (
       <ul>
         <li>
+          <Link to="/myTeams">
+            <i class="fas fa-layer-group"></i>{' '}
+            <span className='hide-sm'>My Teams</span>
+          </Link>
+        </li>
+        <li>
           <Link to="/dashboard">
             <i className='fas fa-user' />{' '}
             <span className='hide-sm'>Dashboard</span>

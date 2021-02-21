@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {deleteAccount, getCurrentProfile, getTeamProfiles} from '../../actions/profile'
-import {getUserTeams} from '../../actions/auth'
+import {getUserTeams, loadUser} from '../../actions/auth'
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
@@ -11,11 +11,12 @@ import Education from './Education';
 import ShowTeams from './ShowTeams';
 import JoinTeam from './JoinTeam';
 
-const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile, loading }, deleteAccount, getUserTeams, getTeamProfiles}) => {
+const Dashboard = ({getCurrentProfile, auth: {user, myTeams}, profile: { profile, loading }, deleteAccount, getUserTeams, getTeamProfiles, loadUser}) => {
 
     useEffect(() => {
         getCurrentProfile();
         getUserTeams(); 
+        loadUser();
         if(user && user.code){
             getTeamProfiles(user.code);
         }
@@ -62,6 +63,7 @@ Dashboard.propTypes = {
     deleteAccount: PropTypes.func.isRequired,
     getUserTeams: PropTypes.func.isRequired,
     getTeamProfiles: PropTypes.func.isRequired,
+    loadUser: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -69,4 +71,4 @@ const mapStateToProps = state => ({
     profile: state.profile, 
 })
 
-export default connect(mapStateToProps, {getCurrentProfile, deleteAccount, getUserTeams, getTeamProfiles})(Dashboard)
+export default connect(mapStateToProps, {getCurrentProfile, deleteAccount, getUserTeams, getTeamProfiles, loadUser})(Dashboard)

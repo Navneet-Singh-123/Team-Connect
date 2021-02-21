@@ -2,8 +2,9 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {createTeam} from '../../actions/auth'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
-const CreateTeam = ({createTeam, auth: {createdTeam, loading}}) => {
+const CreateTeam = ({createTeam, auth: {createdTeam, loading}, history}) => {
 
     const [formData, setFormData] = useState({
         description: '', 
@@ -21,7 +22,7 @@ const CreateTeam = ({createTeam, auth: {createdTeam, loading}}) => {
             </h1>
             <form className='form my-1' onSubmit={e=>{
                 e.preventDefault();
-                createTeam(formData);
+                createTeam(formData, history);
             }}>
                 <div className="form-group">
                     <input type="text" placeholder="Team Name" name="name" value={name} onChange={e=>onChange(e)} required />
@@ -50,4 +51,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {createTeam})(CreateTeam)
+export default connect(mapStateToProps, {createTeam})(withRouter(CreateTeam))

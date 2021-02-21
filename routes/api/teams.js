@@ -186,4 +186,28 @@ router.get("/admin", auth, async (req, res)=>{
     }
 })
 
+
+// @route   GET api/teams/leave/:code
+// @desc    Leave a particular team
+// @access  Private
+router.get('/leave/:code', auth, async (req, res)=>{
+    try {
+        const user = await User.findById(req.user.id);
+        const team = await Team.findOne({code: req.params.code});
+        const removeIndex = team.members.map(member => member.user).indexOf(req.user.id);
+        team.members.splice(removeIndex, 1);
+        if(user.code === req.params.code){
+            user.code = "";
+        }
+        const userRemoveTeamIndex = user.teams.map(team => team.code).indexOf(req.params.code);
+        user.teams.splice(userRemoveTeamIndex, 1);
+        await user.save();
+        await team.save();
+        res.json({msg: 'You are no longer part of that team'});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error') 
+    }
+})
+
 module.exports = router;

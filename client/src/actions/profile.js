@@ -7,7 +7,8 @@ import {
     CLEAR_PROFILE, 
     ACCOUNT_DELETED,
     GET_PROFILES, 
-    GET_REPOS
+    GET_REPOS, 
+    LEAVE_TEAM
 } from './types'
 
 // Get current user's profile
@@ -216,5 +217,20 @@ export const getGithubRepos = (username) => async dispatch =>{
             type: PROFILE_ERROR, 
             payload: { msg: err.response.statusText, status: err.response.status }
         })   
+    }
+}
+
+// Leave a particular team
+export const leaveTeam = (code, history) => async dispatch =>{
+    try{
+        const res = await axios.get(`/api/teams/leave/${code}`);
+        dispatch({
+            type: LEAVE_TEAM
+        })
+        dispatch(setAlert(res.data.msg, "success"));
+        history.push("/dashboard");
+    }
+    catch(err){
+        dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
     }
 }

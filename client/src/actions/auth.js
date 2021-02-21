@@ -158,7 +158,7 @@ export const getAdminTeams = () => async dispatch => {
 }
 
 // Creating team
-export const createTeam = (formData) => async dispatch => {
+export const createTeam = (formData, history) => async dispatch => {
     try {
         const config = {
             headers: {
@@ -171,6 +171,7 @@ export const createTeam = (formData) => async dispatch => {
             payload: res.data
         })
         dispatch(setAlert("Team Created", "success"));
+        history.push('/dashboard');
     } catch (err) {
         const errors = err.response.data.errors
         if(errors){

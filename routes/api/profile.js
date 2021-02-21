@@ -7,6 +7,8 @@ const request = require("request");
 const Profile = require('../../models/Profile');
 const config = require("config");
 const User = require('../../models/User');
+const Post = require("../../models/Post");
+const Team = require("../../models/Team");
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -126,10 +128,25 @@ router.get("/user/:user_id", async (req, res)=>{
 // @access  Private
 router.delete("/", auth, async (req, res)=>{
     try {
+
+        // Remove User post
+        await Post.deleteMany({user: req.user.id});
+
         // Remove Profile
         await Profile.findOneAndRemove({user: req.user.id})
+
+        // Remove the information of this user from the teams he has joined
+        const user = await User.findById(req.user.id);
+        user.teams.map(async team => {
+            const curTeam = await Team.findOne({code: team.code});
+            const removeIndex = curTeam.members.map(member=>member.user).indexOf(req.user.id);
+            curTeam.members.splice(removeIndex, 1);
+            await curTeam.save();
+        })
+
         // Remove User
         await User.findOneAndRemove({_id: req.user.id})
+
         res.json({msg: 'User Deleted'});
     } catch (err) {
         console.error(err.message);
