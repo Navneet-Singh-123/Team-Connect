@@ -210,4 +210,59 @@ router.get('/leave/:code', auth, async (req, res)=>{
     }
 })
 
+
+// @route   GET api/teams/makeAdmin/:code/:userId
+// @desc    make a person admin of the specified team
+// @access  Private
+router.get("/makeAdmin/:code/:userId", auth, async (req, res)=>{
+    try {
+        const adminMaker = await User.findById(req.user.id);
+        var teamIdx = adminMaker.teams.map(team=>team.code).indexOf(req.params.code);
+        if(!adminMaker.teams[teamIdx].isAdmin){
+            return res.json({msg: 'You are not authorized to make/remove admin'});
+        }
+        const newAdminUser = await User.findById(req.params.userId);
+        const newUserTeamIndex = newAdminUser.teams.map(team=>team.code).indexOf(req.params.code);
+        if(newUserTeamIndex!==-1 && newAdminUser.teams[newUserTeamIndex].isAdmin){
+            return res.json({msg: 'User is already an Admin of this team'});
+        }
+        if(newUserTeamIndex!==-1 && !newAdminUser.teams[newUserTeamIndex].isAdmin){
+            newAdminUser.teams[newUserTeamIndex].isAdmin=true;
+            await newAdminUser.save();
+            return res.json({msg: 'User is now an Admin of this team'});
+        }
+        return res.json({msg: 'Something went wrong. Please try again later'});
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
+// @route   GET api/teams/removeAdmin/:code/:userId
+// @desc    remove a person as admin of the specified team
+// @access  Private
+router.get('/removeAdmin/:code/:userId', auth, async (req, res)=>{
+    try {
+        const adminMaker = await User.findById(req.user.id);
+        var teamIdx = adminMaker.teams.map(team=>team.code).indexOf(req.params.code);
+        if(!adminMaker.teams[teamIdx].isAdmin){
+            return res.json({msg: 'You are not authorized to make/remove admin'});
+        }
+        const newAdminUser = await User.findById(req.params.userId);
+        const newUserTeamIndex = newAdminUser.teams.map(team=>team.code).indexOf(req.params.code);
+        if(newUserTeamIndex!==-1 && !newAdminUser.teams[newUserTeamIndex].isAdmin){
+            return res.json({msg: 'User is not an Admin of this team'});
+        }
+        if(newUserTeamIndex!==-1 && newAdminUser.teams[newUserTeamIndex].isAdmin){
+            newAdminUser.teams[newUserTeamIndex].isAdmin=false;
+            await newAdminUser.save();
+            return res.json({msg: 'User is removed as an Admin of this team'});
+        }
+        return res.json({msg: 'Something went wrong. Please try again later'});
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
 module.exports = router;

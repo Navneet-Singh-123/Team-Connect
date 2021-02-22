@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Spinner from '../layout/Spinner'
@@ -7,9 +7,13 @@ import  ProfileItem from './ProfileItem';
 
 const Profiles = ({getTeamProfiles, profile: {profiles, loading}, auth: {user}}) => {
 
+    const[isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
         if(user && user.code!==""){
             getTeamProfiles(user.code);
+            var idx = user.teams.map(team=>team.code).indexOf(user.code);
+            setIsAdmin(user.teams[idx].isAdmin);
         }
     }, [getTeamProfiles, user])
 

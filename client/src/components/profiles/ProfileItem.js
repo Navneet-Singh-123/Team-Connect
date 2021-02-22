@@ -1,16 +1,24 @@
 import React from 'react'
 import {Link} from 'react-router-dom' 
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const ProfileItem = ({profile: {
+const ProfileItem = ({auth, profile: {
     user: {_id, name, avatar}, 
     status, 
     company, 
     location, 
     skills
 }}) => {
+
+    const isAdminCurTeam = (userId) => {
+        var teamIdx = auth.user.teams.map(team=>team.code).indexOf(auth.user.code);
+        console.log(auth.user.team[teamIdx]);
+    }
+
     return (
         <div className="profile bg-light">
+            
             <img src={avatar} alt="Profile" className="round-img"/>
             <div>
                 <h2>{name}</h2>
@@ -31,6 +39,11 @@ const ProfileItem = ({profile: {
 
 ProfileItem.propTypes = {
     profile: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
 }
 
-export default ProfileItem
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, {})(ProfileItem)
