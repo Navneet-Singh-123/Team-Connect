@@ -28,7 +28,7 @@ const Profiles = ({getTeamProfiles, profile: {profiles, loading}, auth: {user}})
                     <div className="profiles">
                         {profiles.length>0 ? (
                             profiles.map(profile => (
-                                <ProfileItem key={profile._id} profile={profile}/>
+                                <ProfileItem key={profile._id} profile={profile} isUserAdmin={isAdmin}/>
                             ))
                         ) : (<h4>No profiles found...</h4>)}
                     </div>

@@ -265,4 +265,49 @@ router.get('/removeAdmin/:code/:userId', auth, async (req, res)=>{
     }
 })
 
+// @route   GET api/teams/check/:code/:userId
+// @desc    Check if the user is the admin of the team or not
+// @access  Private
+router.get('/check/:code/:userId', auth, async (req, res)=>{
+    try {
+        const user = await User.findById(req.params.userId);
+        var teamIdx = user.teams.map(team=>team.code).indexOf(req.params.code);
+        if(user.teams[teamIdx].isAdmin){
+            return res.json({msg: true});
+        }
+        return res.json({msg: false});
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
+// @route   GET api/teams/remove/:code/:userId
+// @desc    Remove the user from the team
+// @access  Private
+router.get('/remove/:code/:userId', auth, async (req, res)=>{
+    try {
+        const user = await User.findById(req.user.id);
+        const teamIdx = user.teams.map(team=>team.code).indexOf(req.params.code);
+        if(teamIdx!==-1 && !user.teams[teamIdx].isAdmin){
+            return res.json({msg: 'You can not remove a member'});
+        }
+        const userToRemove = await User.findById(req.params.userId);
+        const team = await Team.findOne({code: req.params.code});
+        const removeIndex = team.members.map(member => member.user).indexOf(req.params.userId);
+        team.members.splice(removeIndex, 1);
+        if(userToRemove.code === req.params.code){
+            userToRemove.code = "";
+        }
+        const userTeamRemoveIdx = userToRemove.teams.map(team=>team.code).indexOf(req.params.code);
+        userToRemove.teams.splice(userTeamRemoveIdx, 1);
+        await userToRemove.save();
+        await team.save();
+        res.json({msg: 'User removed successfully'})
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+})
+
 module.exports = router;

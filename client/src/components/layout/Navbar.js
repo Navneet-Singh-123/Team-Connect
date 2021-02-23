@@ -11,7 +11,7 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
       <ul>
         <li>
           <Link to="/posts">
-            <i class="far fa-comments"></i>{' '}
+            <i className="far fa-comments"></i>{' '}
             <span className='hide-sm'>Posts</span>
           </Link>
         </li>
@@ -23,7 +23,7 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
         </li>
         <li>
           <Link to="/myTeams">
-            <i class="fas fa-layer-group"></i>{' '}
+            <i className="fas fa-layer-group"></i>{' '}
             <span className='hide-sm'>My Teams</span>
           </Link>
         </li>
@@ -45,7 +45,7 @@ const Navbar = ({auth: {isAuthenticated, loading, user}, logout}) => {
       <ul>
         <li>
           <Link to="/myTeams">
-            <i class="fas fa-layer-group"></i>{' '}
+            <i className="fas fa-layer-group"></i>{' '}
             <span className='hide-sm'>My Teams</span>
           </Link>
         </li>

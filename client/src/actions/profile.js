@@ -234,3 +234,33 @@ export const leaveTeam = (code, history) => async dispatch =>{
         dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
     }
 }
+
+// Make Admin of a team
+export const makeAdmin = (code, userId) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/teams/makeAdmin/${code}/${userId}`);
+        dispatch(setAlert(res.data.msg, "success"));
+    } catch (err) {
+        dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
+    }
+}
+
+// Remove as admin of a team
+export const removeAdmin = (code, userId) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/teams/removeAdmin/${code}/${userId}`);
+        dispatch(setAlert(res.data.msg, "success"));
+    } catch (err) {
+        dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
+    }
+}
+
+// Remove the user by admin
+export const removeUser = (code, userId) => async dispatch => {
+    try {
+        const res = await axios.get(`api/teams/remove/${code}/${userId}`);
+        dispatch(setAlert(res.data.msg, "success"));
+    } catch (err) {
+        dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
+    }
+}
