@@ -14,7 +14,8 @@ import {
     SET_CODE,
     GET_ADMIN_TEAMS,
     CREATE_TEAM,
-    DELETE_TEAM
+    DELETE_TEAM, 
+    GET_CURRENT_TEAM
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -192,5 +193,18 @@ export const deleteTeam = id => async dispatch => {
         dispatch(setAlert("Team removed. Please refresh the page to view changes", "success"))
     } catch (err) {
         dispatch(setAlert(err.response.data, 'danger'))
+    }
+}
+
+// Getting current Team 
+export const getCurrentTeam = code => async dispatch => {
+    try {
+        const res = await axios.get(`/api/teams/current/${code}`);
+        dispatch({
+            type: GET_CURRENT_TEAM, 
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch(setAlert("Somthing went wrong !!", 'danger'))
     }
 }

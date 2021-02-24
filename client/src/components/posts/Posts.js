@@ -5,11 +5,14 @@ import {getPosts} from '../../actions/post'
 import Spinner from '../layout/Spinner'
 import PostItem from './PostItem'
 import PostForm from './PostForm'
+import {getCurrentTeam} from '../../actions/auth'
+import {Link} from 'react-router-dom'
 
-const Posts = ({getPosts, post: {posts, loading}, auth: {user}}) => {
+const Posts = ({getPosts, getCurrentTeam, post: {posts, loading}, auth: {user, currentTeam}}) => {
 
     useEffect(() => {
         if(user && user.code){
+            getCurrentTeam(user.code);
             getPosts(user.code);
         }
     }, [getPosts, user])
@@ -18,7 +21,7 @@ const Posts = ({getPosts, post: {posts, loading}, auth: {user}}) => {
         <Fragment>
             <h1 className='large text-primary'>Posts</h1>
             <p className='lead'>
-                <i className='fas fa-user' /> Welcome to the community
+                <i className='fas fa-user' /> Welcome to the team <Link to={`/team/${currentTeam.code}`}><b><span className="text text-primary">{currentTeam.name}</span></b></Link>
             </p>
             <PostForm />
             <div className='posts'>
@@ -34,6 +37,7 @@ Posts.propTypes = {
     getPosts: PropTypes.func.isRequired, 
     post: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
+    getCurrentTeam: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -41,4 +45,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {getPosts})(Posts)
+export default connect(mapStateToProps, {getPosts, getCurrentTeam})(Posts)

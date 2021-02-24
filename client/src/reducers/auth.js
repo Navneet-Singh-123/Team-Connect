@@ -11,7 +11,8 @@ import {
     ENTER_TEAM,
     SET_CODE,
     GET_ADMIN_TEAMS, 
-    CREATE_TEAM
+    CREATE_TEAM, 
+    GET_CURRENT_TEAM
 } from '../actions/types.js';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
     user: null, 
     myTeams: [], 
     adminTeams: [], 
-    createdTeam: null
+    createdTeam: null, 
+    currentTeam: null
 }
 
 export default function(state=initialState, action){
@@ -75,6 +77,11 @@ export default function(state=initialState, action){
                 ...state, 
                 loading: false,
                 adminTeams: payload 
+            }
+        case GET_CURRENT_TEAM: 
+            return {
+                ...state, 
+                currentTeam: payload
             }
         case CREATE_TEAM: 
             return {

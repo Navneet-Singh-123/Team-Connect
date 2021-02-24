@@ -310,4 +310,17 @@ router.get('/remove/:code/:userId', auth, async (req, res)=>{
     }
 })
 
+// @route   GET api/teams/current/:code
+// @desc    Getting the details of current Team
+// @access  Private
+router.get("/current/:code", auth, async (req, res)=>{
+    try {
+        const team = await Team.findOne({code: req.params.code});
+        res.json(team);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
 module.exports = router;
