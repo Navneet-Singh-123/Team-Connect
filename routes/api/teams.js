@@ -78,7 +78,7 @@ router.delete("/:id", auth, async (req, res)=>{
         posts.map(async post=>{
             await Post.findByIdAndRemove(post._id);
         })
-
+ 
         // Remove the team itself
         await Team.findByIdAndRemove(req.params.id);
         res.json({msg: 'Team removed'});
@@ -320,6 +320,41 @@ router.get("/current/:code", auth, async (req, res)=>{
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Server Error")
+    }
+})
+
+
+// @route   GET api/teams/current/:code
+// @desc    Getting the details of current Team by id
+// @access  Private
+router.get("/current/byId/:id", auth, async(req, res)=>{
+    try {
+        const team = await Team.findById(req.params.id);
+        res.json(team);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+
+// @route   GET api/teams/edit/:id
+// @desc    Edit team details
+// @access  Private
+router.put("/edit/:id", auth, async(req, res)=>{
+    try {
+        let team = await Team.findById(req.params.id);
+        const teamFields = {};
+        if(!team){
+            return res.json({msg: 'Team not found'});
+        }
+        teamFields.name = req.body.name;
+        teamFields.description = req.body.description;
+        team = await Team.findOneAndUpdate({_id: req.params.id}, {$set: teamFields}, {new: true});
+        res.json(team);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error");
     }
 })
 

@@ -264,3 +264,4 @@ export const removeUser = (code, userId) => async dispatch => {
         dispatch(setAlert("Something went wrong!! Couldn't complete the desired action", "danger"))
     }
 }
+

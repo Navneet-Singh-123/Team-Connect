@@ -17,6 +17,7 @@ import PrivateRoute from '../routing/PrivateRoute';
 import CreateTeam from '../dashboard/CreateTeam';
 import MyTeams from '../teams/MyTeams'
 import TeamDetails from '../teams/TeamDetails'
+import EditDetails from '../teams/EditDetails';
 
 const Routes = () => {
   return (
@@ -37,6 +38,7 @@ const Routes = () => {
         <PrivateRoute exact path='/create-team' component={CreateTeam} />
         <PrivateRoute exact path='/myTeams' component={MyTeams} />
         <PrivateRoute exact path='/team/:code' component={TeamDetails} />
+        <PrivateRoute exact path='/team/edit/:id' component={EditDetails} />
         <Route component={NotFound} />
       </Switch>
     </section>

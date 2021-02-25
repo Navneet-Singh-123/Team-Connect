@@ -15,7 +15,8 @@ import {
     GET_ADMIN_TEAMS,
     CREATE_TEAM,
     DELETE_TEAM, 
-    GET_CURRENT_TEAM
+    GET_CURRENT_TEAM, 
+    EDIT_TEAM_DETAILS
 } from './types.js'
 import setAuthToken from '../utils/setAuthToken';
 
@@ -183,16 +184,17 @@ export const createTeam = (formData, history) => async dispatch => {
 }
 
 // Deleting team
-export const deleteTeam = id => async dispatch => {
+export const deleteTeam = (id, history) => async dispatch => {
     try {
         const res = await axios.delete(`/api/teams/${id}`);
         console.log(res);
         dispatch({
             type: DELETE_TEAM, 
         })
-        dispatch(setAlert("Team removed. Please refresh the page to view changes", "success"))
+        dispatch(setAlert(res.data.msg, "success"))
+        history.push("/dashboard");
     } catch (err) {
-        dispatch(setAlert(err.response.data, 'danger'))
+        dispatch(setAlert("Something went wrong", 'danger'))
     }
 }
 
@@ -206,5 +208,37 @@ export const getCurrentTeam = code => async dispatch => {
         })
     } catch (err) {
         dispatch(setAlert("Somthing went wrong !!", 'danger'))
+    }
+}
+
+// Getting current team by id
+export const getCurrentTeamById = id => async dispatch => {
+    try {
+        const res = await axios.get(`/api/teams/current/byId/${id}`);
+        dispatch({
+            type: GET_CURRENT_TEAM, 
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch(setAlert("Somthing went wrong !!", 'danger'))
+    }
+}
+
+// Edit Team details
+export const editTeamDetails = (id, teamDetails, history) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put(`/api/teams/edit/${id}`, teamDetails, config);
+        dispatch({
+            type: EDIT_TEAM_DETAILS, 
+            payload: res.data
+        })
+        dispatch(setAlert("Team Details Updated", 'success'));
+    } catch (err) {
+        dispatch(setAlert("Somthing went wrong !!", 'danger'))  
     }
 }

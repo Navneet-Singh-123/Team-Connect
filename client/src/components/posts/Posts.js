@@ -23,6 +23,7 @@ const Posts = ({getPosts, getCurrentTeam, post: {posts, loading}, auth: {user, c
             <p className='lead'>
                 <i className='fas fa-user' /> Welcome to the team <Link to={`/team/${currentTeam.code}`}><b><span className="text text-primary">{currentTeam.name}</span></b></Link>
             </p>
+            <p className="lead">{currentTeam.description}</p>
             <PostForm />
             <div className='posts'>
                 {posts.map(post => (
