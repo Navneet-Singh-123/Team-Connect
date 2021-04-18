@@ -1,4 +1,4 @@
-(https://badges.pufler.dev) [![Created Badge](https://badges.pufler.dev/created/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev)
+[![Visits Badge](https://badges.pufler.dev/visits/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Created Badge](https://badges.pufler.dev/created/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev)
 
 # [Team Connector](https://blooming-spire-16914.herokuapp.com/)
 
@@ -83,4 +83,4 @@ NodeJS is an open source server environment which is free and runs on various pl
         *  Robust technology stack
         *  Fast-processing and event-based model
         *  Strong corporate support
- 
+    
