@@ -75,8 +75,10 @@ React is a JavaScript library for building user interfaces or UI components. It 
         *  Strong community support
         
 ## Backend
+
 * #### NodeJS
 NodeJS is an open source server environment which is free and runs on various platforms (Windows, Linux, Unix, Mac OS X, etc). It uses JavaScript on the server. NodeJS files contain tasks that will be executed on certain events.
+
     * ###### Why Node ?
         *  It’s a light and scalable
         *  Uses the approach of non-blocking I/O
