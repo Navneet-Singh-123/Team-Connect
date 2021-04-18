@@ -23,4 +23,44 @@
 Team Connector is a platform where users can collaborate on a project by creating a team<br> on the website. This will then allow them to create a post and have an in-depth discussion related to<br> that particular post in the discussion section of that post. Members of a team also have the ability to <br>like, unlike any post or comment.
 ### Built With
 *   MERN 
+
+[Back to Table of Contents](#table-of-contents)
+## Getting Started
+### Prerequisites
+* ReactJS
+* NodeJS
+### Installation
+* Install server dependencies
+
+	
+```bash
+npm install
+```
+
+* Install client dependencies
+
+	
+```bash
+cd client
+npm install
+```
+
+
+### Usage
+* Add a default.json file in config folder with the following
+	
+```
+{
+  "mongoURI": "<your_mongoDB_Atlas_uri_with_credentials>",
+  "jwtSecret": "secret",
+  "githubToken": "<yoursecrectaccesstoken>"
+}
+```
+
+* Run both Express & React from root
+
+	
+```bash
+npm run dev
+```
 [Back to Table of Contents](#table-of-contents)
