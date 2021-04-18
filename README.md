@@ -18,6 +18,7 @@
     * [ReactJS](#reactjs)
 * [Backend](#backend)
     * [NodeJS](#nodejs)
+* [Screenshots](#screenshots)
 
 ## About the Project
 Team Connector is a platform where users can collaborate on a project by creating a team<br> on the website. This will then allow them to create a post and have an in-depth discussion related to<br> that particular post in the discussion section of that post. Members of a team also have the ability to <br>like, unlike any post or comment.
@@ -115,6 +116,20 @@ NodeJS is an open source server environment which is free and runs on various pl
     * Have access to the team code 
     
 [Back to Table of Contents](#table-of-contents)
-    
-	
+## Screenshots
+
 ![alt text](Screenshots/Home.png)
+
+![alt text](Screenshots/Dashboard1.png)
+
+![alt text](Screenshots/Dashboard2.png)
+
+![alt text](Screenshots/Post.png)
+
+![alt text](Screenshots/Comment.png)
+
+![alt text](Screenshots/TeamDashboard.png)
+
+![alt text](Screenshots/Members.png)
+
+![alt text](Screenshots/MyTeams.png)
