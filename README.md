@@ -1,4 +1,4 @@
-[![Visits Badge](https://badges.pufler.dev/visits/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Created Badge](https://badges.pufler.dev/created/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev)
+(https://badges.pufler.dev) [![Created Badge](https://badges.pufler.dev/created/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/Navneet-Singh-123/Team-Connect)](https://badges.pufler.dev)
 
 # [Team Connector](https://blooming-spire-16914.herokuapp.com/)
 
@@ -64,3 +64,23 @@ npm install
 npm run dev
 ```
 [Back to Table of Contents](#table-of-contents)
+## Frontend
+* #### ReactJS
+React is a JavaScript library for building user interfaces or UI components. It encourages the creation of reusable UI components, which present data that changes over time. React is all about components. We need to think of everything as a component. This will help us to maintain the code when working on larger scale projects.
+    * ###### Why React ?
+        *  Fast render with Virtual DOM
+        *  Flexibility
+        *  Helps to build rich user interfaces
+        *  Offers fast rendering
+        *  Strong community support
+        
+## Backend
+* #### NodeJS
+NodeJS is an open source server environment which is free and runs on various platforms (Windows, Linux, Unix, Mac OS X, etc). It uses JavaScript on the server. NodeJS files contain tasks that will be executed on certain events.
+    * ###### Why Node ?
+        *  It’s a light and scalable
+        *  Uses the approach of non-blocking I/O
+        *  Robust technology stack
+        *  Fast-processing and event-based model
+        *  Strong corporate support
+ 
