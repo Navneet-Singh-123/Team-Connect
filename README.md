@@ -83,4 +83,36 @@ NodeJS is an open source server environment which is free and runs on various pl
     *  Robust technology stack
     *  Fast-processing and event-based model
     *  Strong corporate support
+
+## Features
+* #### User Module
+    * Registration and login for the users
+    * Edit profile
+    * Add experience and education
+    * Delete experience and education
+    * Delete user account
+    * Create a new Team (Person creating the team will be the admin of that team)
+    * Enter the team code to be a part of that team
+    * Select the team from the list of teams that has that user as its member
+    * View the description of team
+    * Create a post
+    * Delete post
+    * Like and unlike the posts
+    * Have a discussion related to a particular post 
+    * Comment to a post, Delete Comment
+    * View members of a team and their profile 
+    * View the list of admin teams and joined teams 
+    * Leave a joined team 
+    
+* #### Admin Module
+  
+    Apart from the above functionalities, admin has certain extra privileges which are as follows:
+    * Delete a team 
+    * Edit details of a team
+    * Remove any user from the team
+    * Make any non admin user as admin
+    * Dismiss as admin any user who is admin 
+    * Have access to the team code 
+    
+[Back to Table of Contents](#table-of-contents)
     
