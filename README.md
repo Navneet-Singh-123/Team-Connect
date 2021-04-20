@@ -133,3 +133,7 @@ NodeJS is an open source server environment which is free and runs on various pl
 ![alt text](Screenshots/Members.png)
 
 ![alt text](Screenshots/MyTeams.png)
+
+## License & copyright
+
+Licensed under the [MIT License](LICENSE)
