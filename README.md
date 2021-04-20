@@ -19,6 +19,7 @@
 * [Backend](#backend)
     * [NodeJS](#nodejs)
 * [Screenshots](#screenshots)
+* [License](#license)
 
 ## About the Project
 Team Connector is a platform where users can collaborate on a project by creating a team<br> on the website. This will then allow them to create a post and have an in-depth discussion related to<br> that particular post in the discussion section of that post. Members of a team also have the ability to <br>like, unlike any post or comment.
@@ -134,6 +135,6 @@ NodeJS is an open source server environment which is free and runs on various pl
 
 ![alt text](Screenshots/MyTeams.png)
 
-## License & copyright
+## License
 
 Licensed under the [MIT License](LICENSE)
